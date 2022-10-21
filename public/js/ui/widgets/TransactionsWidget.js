@@ -11,8 +11,11 @@ class TransactionsWidget {
    * Если переданный элемент не существует,
    * необходимо выкинуть ошибку.
    * */
-  constructor( element ) {
+  constructor(element){
+    if (element === null) throw 'Oops, there is no element';
 
+    this.element = element;
+    this.registerEvents();
   }
   /**
    * Регистрирует обработчики нажатия на
@@ -20,7 +23,15 @@ class TransactionsWidget {
    * При нажатии вызывает Modal.open() для
    * экземпляра окна
    * */
-  registerEvents() {
+  registerEvents(){
+    this.element.querySelector('.create-income-button').onclick = e => {
+      e.preventDefault();
+      App.getModal('newIncome').open();
+    }
 
+    this.element.querySelector('.create-expense-button').onclick = e => {
+      e.preventDefault();
+      App.getModal('newExpense').open();
+    }
   }
 }
